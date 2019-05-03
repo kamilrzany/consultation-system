@@ -26,24 +26,9 @@ Additional info
 * do not use `require-dev` in composer.json (keep common vendors)
 
 
-Deploy (dev / rancher)
+Migrations
 ---
 ```
-yake deploy php
-yake deploy nginx
+yake php bin/console doctrine:migrations:diff
+yake php bin/console doctrine:migrations:migrate  
 ```
-* import `./deploy/rancher/docker-compose.yml` into Rancher + complete ENVs
-* make sure `mysql` works on specific host (Scheduling)
-* make sure `nginx` has *Health Check* enabled
-
-
-Deploy (prod)
----
-```
-yake deploy php
-yake deploy nginx
-```
-* import `./deploy/prod/docker-compose.yml` into server + copy ENV files from `docker` directory
-* `docker-compose pull --quiet`
-* `docker-compose up -d --force-recreate`
-
