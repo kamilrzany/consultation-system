@@ -1,0 +1,52 @@
+php: docker-compose exec php entrypoint php $CMD
+console: $BIN php ./bin/console $CMD
+composer: $BIN php ./composer.phar --optimize-autoloader $CMD
+node: "docker run -it --rm -w /usr/src/app
+      -v $(pwd):/usr/src/app -v ~/.docker-node-cache:/home/node/cache -v ~/.ssh:/home/node/.ssh
+      amsdard/node:10 $CMD"
+
+# aliases
+npm: $BIN node npm $CMD
+yarn: $BIN node yarn $CMD
+bower: $BIN node bower $CMD
+grunt: $BIN node grunt $CMD
+gulp: $BIN node gulp $CMD
+
+# symfony aliases
+encore: $BIN yarn run encore $CMD
+
+# Up project.
+up:
+  - docker-compose up -d --force-recreate $CMD
+
+# Deletes all project containers.
+down: docker-compose down -v --rmi=all $CMD
+
+# List all project containers.
+ps: docker-compose ps $CMD
+
+# build container `yake build php`
+build: docker-compose build --pull $CMD
+
+# prepare & build & push to hub.amsdard.io, ie: `yake deploy php`
+deploy:
+  - $BIN build $CMD
+  - docker-compose push $CMD
+
+install:
+  - $BIN composer install
+  - $BIN yarn install
+
+# Seeds database with sample user and site - for one time use per deployment.
+populate:
+
+# Fresh installation process - to be run one time
+configure:
+   - "[[ ! -f .env ]] && cp .env.dist .env"
+   - "[[ ! -f docker/mongo/config.env ]] && cp docker/mongo/config.env.dist docker/mongo/config.env"
+   - curl -fsSL 'https://getcomposer.org/composer.phar' -o ./composer.phar
+
+# default values
+_config:
+  FORCE_ALL: 1
+  ENV: dev

@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+    homepage
+    <a class="text-muted" href="{{ path('app_login') }}">login </a>
+    <a class="text-muted" href="{{ path('app_register') }}">register </a>
+{% endblock %}

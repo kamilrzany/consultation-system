@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:5-alpine
+    container_name: redis.vac-backend.docker
+    command: 'redis-server --save "" --appendonly no'
+    stdin_open: true
+    tty: true
+    networks:
+       - global
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysql.vac-backend.docker
+    tty: true
+    networks:
+       - global
+    env_file:
+       - ./docker/mysql/config.env
+    environment:
+       - MYSQL_DATABASE=vac_db
+       - MYSQL_ROOT_PASSWORD=vac_pw
+    volumes:
+       - ~/data/mysql.vac-backend.docker:/var/lib/mysql
+    restart: always
+    
+  php:
+    image: amsdard.io/vac-backend/php:1.0
+    container_name: php.vac-backend.docker
+    build:
+        context: ./
+        dockerfile: ./docker/php/Dockerfile
+    networks:
+       - global
+    tty: true
+    stdin_open: true
+    volumes:
+       - ./:/opt:cached
+       - ~/.ssh:/var/www/.ssh:cached
+       - ~/.docker-composer:/var/www/.composer:cached
+    links:
+       - mysql
+       - redis
+    restart: always
+
+  nginx:
+    image: amsdard.io/vac-backend/nginx:1.0
+    container_name: nginx.vac-backend.docker
+    build:
+        context: ./
+        dockerfile: ./docker/nginx/Dockerfile
+    networks:
+       - global
+    stdin_open: true
+    tty: true
+    labels:
+       traefik.frontend.rule: "HostRegexp:{subdomain}.vac-backend.test,vac-backend.test"
+    volumes:
+       - ./public:/opt/public:cached
+       - ./docker/nginx/:/etc/nginx/conf.d:cached
+    links:
+       - php
+    restart: always
+
+networks:
+  global:
+    external: true
