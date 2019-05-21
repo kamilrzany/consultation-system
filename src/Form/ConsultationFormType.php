@@ -18,11 +18,13 @@ class ConsultationFormType extends AbstractType
         $builder
             ->add('startDate', DateTimeType::class, [
                 'label' => 'Początek konsultacji',
-                'minutes' => [0, 15, 30, 45]
+                'minutes' => [0, 15, 30, 45],
+                'format' => 'datetime'
             ])
             ->add('endDate', DateTimeType::class, [
                 'label' => 'Koniec konsultacji',
-                'minutes' => [0, 15, 30, 45]
+                'minutes' => [0, 15, 30, 45],
+                'format' => 'datetime'
             ])
         ;
     }

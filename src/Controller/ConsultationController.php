@@ -22,7 +22,7 @@ class ConsultationController extends AbstractController
      */
     public function index(ConsultationRepository $consultationRepository): Response
     {
-        $consultations = $consultationRepository->findBy(['author' => $this->getUser()], ['createdAt' => 'DESC']);
+        $consultations = $consultationRepository->findBy(['author' => $this->getUser()], ['startDate' => 'ASC']);
 
         return $this->render('consultation/index.html.twig', ['consultations' => $consultations]);
     }

@@ -30,8 +30,8 @@
                         <tbody>
                         {% for consultation in consultations %}
                             <tr>
-                                <td>{{ consultation.startDate | date("d.m.Y h:m") }}</td>
-                                <td>{{ consultation.endDate | date("d.m.Y h:m") }}</td>
+                                <td>{{ consultation.startDate | date("d.m.Y H:i") }}</td>
+                                <td>{{ consultation.endDate | date("d.m.Y H:i") }}</td>
                                 <td>{{ consultation.author.getFullName() }}</td>
                                 <td class="text-right">
                                     <div class="item-actions">

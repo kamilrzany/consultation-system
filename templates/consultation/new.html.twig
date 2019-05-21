@@ -16,22 +16,32 @@
                 Dodaj nowy termin konsultacji
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    {{ form_start(form) }}
-                    <div class="data-wrapper">
-                        {{ form_row(form.startDate) }}
-                        {{ form_row(form.endDate) }}
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group date">
+                                {{ form_row(form.startDate) }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="button-row">
-                        <a href="{{ path('consultations') }}" class="btn btn-link">
-                            <i class="fa fa-list-alt" aria-hidden="true"></i> Wróć do listy
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-save" aria-hidden="true"></i> Stwórz
-                        </button>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group date">
+                                {{ form_row(form.endDate) }}
+                            </div>
+                        </div>
                     </div>
-                    {{ form_end(form) }}
                 </div>
+                <div class="button-row">
+                    <a href="{{ path('consultations') }}" class="btn btn-link">
+                        <i class="fa fa-list-alt" aria-hidden="true"></i> Wróć do listy
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save" aria-hidden="true"></i> Stwórz
+                    </button>
+                </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
