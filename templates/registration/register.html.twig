@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registration{% endblock %}
+{% block title %}Rejestracja{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="card card-register mx-auto mt-5">
-            <div class="card-header">Register an Account</div>
+            <div class="card-header">Rejestracja</div>
             <div class="card-body">
                 {{ form_start(registrationForm) }}
                 <div class="form-group">
@@ -15,7 +15,7 @@
                                 {{ form_errors(registrationForm.name) }}
                                 {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control'}, 'label': 'elo' }) }}
                                 {{ form_help(registrationForm.name) }}
-                                {{ form_label(registrationForm.name, 'Name') }}
+                                {{ form_label(registrationForm.name, 'Imię') }}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -23,7 +23,7 @@
                                 {{ form_errors(registrationForm.surname) }}
                                 {{ form_widget(registrationForm.surname, {'attr': {'class': 'form-control'} }) }}
                                 {{ form_help(registrationForm.surname) }}
-                                {{ form_label(registrationForm.surname, 'Surname') }}
+                                {{ form_label(registrationForm.surname, 'Nazwisko') }}
                             </div>
                         </div>
                     </div>
@@ -43,16 +43,16 @@
                                 {{ form_errors(registrationForm.plainPassword) }}
                                 {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'} }) }}
                                 {{ form_help(registrationForm.plainPassword) }}
-                                {{ form_label(registrationForm.plainPassword, 'Password') }}
+                                {{ form_label(registrationForm.plainPassword, 'Hasło') }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-block">Register</button>
+                <button class="btn btn-primary btn-block">Zarejestruj</button>
                 {{ form_end(registrationForm) }}
                 <div class="text-center">
-                    <a class="d-block small mt-3" href="{{ path('app_login') }}">Login Page</a>
-                    <a class="d-block small" href="{{ path('app_login') }}">Forgot Password?</a>
+                    <a class="d-block small mt-3" href="{{ path('app_login') }}">Załóż konto</a>
+                    <a class="d-block small" href="{{ path('app_login') }}">Zapomniałeś hasła?</a>
                 </div>
             </div>
         </div>

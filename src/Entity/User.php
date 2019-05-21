@@ -111,6 +111,12 @@ class User implements UserInterface
         return (string) $this->email;
     }
 
+    public function getFullName(): string
+    {
+        return (string) $this->name . ' ' . (string) $this->surname;
+
+    }
+
     /**
      * @see UserInterface
      */

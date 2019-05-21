@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Dashboard{% endblock %}</title>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+
+{% include 'dashboard/_partials/navbar.html.twig' %}
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {% if is_granted(expression('"ROLE_ADMIN" in roles')) %}
+        {% include 'dashboard/_partials/sidebar-admin.html.twig' %}
+    {% else %}
+        {% include 'dashboard/_partials/sidebar-user.html.twig' %}
+    {% endif %}
+
+    {% block body %}
+
+    {% endblock %}
+    <!-- /.content-wrapper -->
+</div>
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gotowy do wyjścia?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Wybierz "Wyloguj" jeśli jesteś gotów by opuścić tę stroną.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                <a class="btn btn-primary" href="{{ path('app_logout') }}">Wyloguj</a>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+
+
+
+
+
