@@ -19,3 +19,5 @@ yarn-error.log
 /docker/*/*.env
 /composer.phar
 ###< amsdard/symfony-as-docker ###
+
+/.idea
