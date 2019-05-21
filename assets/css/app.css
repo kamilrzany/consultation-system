@@ -4862,6 +4862,24 @@ input[type="button"].btn-block {
     color: #fff;
 }
 
+.flash-message {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: #c0ffb1;
+    border-radius: 0.25rem;
+}
+.flash-message + .flash-message .flash-message-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    color: #6c757d;
+    content: "/";
+}
 .card {
     position: relative;
     display: -webkit-box;

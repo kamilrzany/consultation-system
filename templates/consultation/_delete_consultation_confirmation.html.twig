@@ -1,0 +1,23 @@
+<div class="modal fade" id="confirmationModal-{{ id }}" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>Usuwanie</h4>
+                <p>Czy na pewno chcesz usunąć tą konosultację?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#"
+                   class="btn btn-sm btn-default" data-dismiss="modal">
+                    <i class="fa fa-ban" aria-hidden="true"></i> Anuluj
+                </a>
+                <a href="{{ path('delete_consultation', {id: id}) }}"
+                   class="btn btn-danger">
+                    {{ id }}
+                    <i class="fa fa-trash" aria-hidden="true"></i> Usuń
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

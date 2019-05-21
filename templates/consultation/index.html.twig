@@ -1,0 +1,65 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Konsultacje</a>
+            </li>
+            <li class="breadcrumb-item active">Lista</li>
+        </ol>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Lista konsultacji
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Początek konsultacji</th>
+                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Koniec konsultacji</th>
+                            <th scope="col">Autor</th>
+                            <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> Akcje</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for consultation in consultations %}
+                            <tr>
+                                <td>{{ consultation.startDate | date("d.m.Y h:m") }}</td>
+                                <td>{{ consultation.endDate | date("d.m.Y h:m") }}</td>
+                                <td>{{ consultation.author.getFullName() }}</td>
+                                <td class="text-right">
+                                    <div class="item-actions">
+                                        <a href="{{ path('show_consultation', {id: consultation.id}) }}"
+                                           class="btn btn-sm btn-default">
+                                            <i class="fa fa-eye" aria-hidden="true"></i> Wyświetl
+                                        </a>
+                                        <a href="{{ path('edit_consultation', {id: consultation.id}) }}"
+                                           class="btn btn-sm btn-primary">
+                                            <i class="fa fa-edit" aria-hidden="true"></i> Edytuj
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal"
+                                           data-target="#confirmationModal-{{ consultation.id }}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i> Usuń
+                                        </a>
+                                        {{ include('consultation/_delete_consultation_confirmation.html.twig', {id: consultation.id}) }}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" align="center">Brak konsultacji</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

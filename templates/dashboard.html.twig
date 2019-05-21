@@ -14,20 +14,26 @@
     {% endblock %}
 </head>
 
-{% include 'dashboard/_partials/navbar.html.twig' %}
+{% include 'layout/navbar.html.twig' %}
 
 <div id="wrapper">
 
     <!-- Sidebar -->
-    {% if is_granted(expression('"ROLE_ADMIN" in roles')) %}
-        {% include 'dashboard/_partials/sidebar-admin.html.twig' %}
+    {% if is_granted("ROLE_ADMIN") %}
+        {% include 'layout/sidebar-admin.html.twig' %}
     {% else %}
-        {% include 'dashboard/_partials/sidebar-user.html.twig' %}
+        {% include 'layout/sidebar-user.html.twig' %}
     {% endif %}
+    <div id="content-wrapper">
+        {% include 'layout/message.html.twig' %}
 
-    {% block body %}
+        {% block body %}
 
-    {% endblock %}
+        {% endblock %}
+
+        <!-- Sticky Footer -->
+        {% include 'layout/footer.html.twig' %}
+    </div>
     <!-- /.content-wrapper -->
 </div>
 
@@ -36,25 +42,8 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
+{% include 'layout/_logout_confirmation.html.twig' %}
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Gotowy do wyjścia?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Wybierz "Wyloguj" jeśli jesteś gotów by opuścić tę stroną.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                <a class="btn btn-primary" href="{{ path('app_logout') }}">Wyloguj</a>
-            </div>
-        </div>
-    </div>
-</div>
 </html>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}

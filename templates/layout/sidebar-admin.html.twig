@@ -11,9 +11,13 @@
             <i class="fas fa-fw fa-folder"></i>
             <span>Konsultacje</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="">Dodaj</a>
-            <a class="dropdown-item" href="">Lista</a>
+        {% set active = app.request.get('_route') in [
+            'consultations', 'add_consultation', 'show_consultation', 'edit_consultation'
+        ] %}
+        <div class="dropdown-menu {% if active %}show{% endif %}" aria-labelledby="pagesDropdown">
+
+            <a class="dropdown-item" href="{{ path('add_consultation') }}">Dodaj</a>
+            <a class="dropdown-item" href="{{ path('consultations') }}">Lista</a>
         </div>
     </li>
     <li class="nav-item">

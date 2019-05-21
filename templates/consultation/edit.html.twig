@@ -1,0 +1,30 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Konsultacja</a>
+            </li>
+            <li class="breadcrumb-item active">Edycja</li>
+        </ol>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                Zedytuj istniejącą konsultacje
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {{ include('consultation/_form.html.twig', {
+                        form: form,
+                        button_label: 'Zapisz',
+                        include_back_to_home_link: true,
+                    }, with_context = false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

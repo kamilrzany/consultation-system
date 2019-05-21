@@ -1,0 +1,26 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Konsultacja</a>
+            </li>
+            <li class="breadcrumb-item active">Widok</li>
+        </ol>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                Konsultacja {{ consultation.startDate | date("d.m.Y h:m") }}
+                - {{ consultation.endDate | date("d.m.Y h:m") }}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {{ consultation.author.getFullname() }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
