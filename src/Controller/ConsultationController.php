@@ -41,6 +41,14 @@ class ConsultationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $data = $form->getData();
+            $datesValidation = $data->areDatesValid($data->getStartDate(), $data->getEndDate());
+
+            if (!$datesValidation) {
+                $this->addFlash('error', 'Data zakończenia musi być większa od daty rozpoczęcia!');
+                return $this->redirectToRoute('add_consultation');
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($consultation);
             $em->flush();
@@ -79,6 +87,15 @@ class ConsultationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            $datesValidation = $data->areDatesValid($data->getStartDate(), $data->getEndDate());
+
+            if (!$datesValidation) {
+                $this->addFlash('error', 'Data zakończenia musi być większa od daty rozpoczęcia!');
+                return $this->redirectToRoute('edit_consultation', ['id' => $consultation->getId()]);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Konsultacja została zaktualizowana.');

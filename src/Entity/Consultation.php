@@ -112,4 +112,11 @@ class Consultation
         $this->createdAt = $createdAt;
     }
 
+    public function areDatesValid(\DateTime $startDate, \DateTime $endDate): bool
+    {
+        $start = date_format($startDate, "d.m.Y H:i");
+        $end = date_format($endDate, "d.m.Y H:i");
+
+        return $end > $start ?: false;
+    }
 }
