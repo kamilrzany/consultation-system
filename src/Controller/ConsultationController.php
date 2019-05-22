@@ -32,17 +32,17 @@ class ConsultationController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $post = new Consultation();
-        $post->setAuthor($this->getUser());
+        $consultation = new Consultation();
+        $consultation->setAuthor($this->getUser());
 
-        $form = $this->createForm(ConsultationFormType::class, $post);
+        $form = $this->createForm(ConsultationFormType::class, $consultation);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
+            $em->persist($consultation);
             $em->flush();
 
             $this->addFlash('success', 'Konsultacja została utworzona.');
@@ -55,7 +55,7 @@ class ConsultationController extends AbstractController
         }
 
         return $this->render('consultation/new.html.twig', [
-            'post' => $post,
+            'consultation' => $consultation,
             'form' => $form->createView(),
         ]);
     }

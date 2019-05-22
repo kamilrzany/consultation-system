@@ -16,11 +16,9 @@
                 Zedytuj istniejącą konsultacje
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    {{ include('consultation/_form.html.twig', {
-                        form: form
-                    }, with_context = false) }}
-                </div>
+                {{ include('consultation/_form.html.twig', {
+                    form: form
+                }, with_context = false) }}
             </div>
         </div>
     </div>
