@@ -14,7 +14,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Lista konsultacji
+                Lista dostępnych konsultacji
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -37,25 +37,20 @@
                                 <td>{{ consultation.author.getFullName() }}</td>
                                 <td class="text-right">
                                     <div class="item-actions">
-                                        <a href="{{ path('show_consultation', {id: consultation.id}) }}"
+                                        <a href="{{ path('show_reservation', {id: consultation.id}) }}"
                                            class="btn btn-sm btn-default">
                                             <i class="fa fa-eye" aria-hidden="true"></i> Wyświetl
                                         </a>
-                                        <a href="{{ path('edit_consultation', {id: consultation.id}) }}"
+                                        <a href="{{ path('add_reservation', {id: consultation.id}) }}"
                                            class="btn btn-sm btn-primary">
-                                            <i class="fa fa-edit" aria-hidden="true"></i> Edytuj
+                                            <i class="fa fa-edit" aria-hidden="true"></i> Dodaj rezerwację
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal"
-                                           data-target="#confirmationModal-{{ consultation.id }}">
-                                            <i class="fa fa-trash" aria-hidden="true"></i> Usuń
-                                        </a>
-                                        {{ include('consultation/_delete_consultation_confirmation.html.twig', {id: consultation.id}) }}
                                     </div>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="5" align="center">Brak konsultacji</td>
+                                <td colspan="5" align="center">Brak wolnych konsultacji</td>
                             </tr>
                         {% endfor %}
                         </tbody>

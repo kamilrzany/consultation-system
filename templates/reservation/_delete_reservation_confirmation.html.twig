@@ -5,16 +5,16 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h4>Usuwanie</h4>
-                <p>Czy na pewno chcesz usunąć tę konosultację?</p>
+                <p>Czy na pewno chcesz anulować tę rezerwację?</p>
             </div>
             <div class="modal-footer">
                 <a href="#"
                    class="btn btn-sm btn-default" data-dismiss="modal">
-                    <i class="fa fa-ban" aria-hidden="true"></i> Anuluj
+                    <i class="fa fa-ban" aria-hidden="true"></i> Nie
                 </a>
-                <a href="{{ path('delete_consultation', {id: id}) }}"
+                <a href="{{ path('delete_reservation', {id: id}) }}"
                    class="btn btn-danger">
-                    <i class="fa fa-trash" aria-hidden="true"></i> Usuń
+                    <i class="fa fa-trash" aria-hidden="true"></i> Tak
                 </a>
             </div>
         </div>

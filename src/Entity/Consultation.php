@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,16 +57,30 @@ class Consultation
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="consultation", cascade={"persist"})
+     */
+    private $reservations;
+
+    const PERIOD = 15 * 60;
+
     public function __construct()
     {
+        $this->status = true;
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
         $this->createdAt = new \DateTime();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPeriod(): ?int
+    {
+        return self::PERIOD;
     }
 
     public function getStartDate(): \DateTime
@@ -123,7 +139,7 @@ class Consultation
 
     public function getCreatedAt(): \DateTime
     {
-        return $this->endDate;
+        return $this->createdAt;
     }
 
     public function setCreatedAt(\DateTime $createdAt): void
@@ -138,4 +154,66 @@ class Consultation
 
         return $end > $start ?: false;
     }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setConsultation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            if ($reservation->getConsultation() === $this) {
+                $reservation->setConsultation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getOptions()
+    {
+        $options = [];
+        for ($consultationStart = $this->getStartDate()->getTimestamp(); $consultationStart < $this->getEndDate()->getTimestamp(); $consultationStart += $this->getPeriod()) {
+            $consultationEnd = $consultationStart + $this->getPeriod();
+            $availableTerms = [];
+            foreach ($this->reservations as $reservation) {
+                $availableTerms[] = $reservation->getTerm();
+            }
+            if (!in_array(date('H:i', $consultationStart), $availableTerms)) {
+                $options[date('H:i', $consultationStart) . ' - ' . date('H:i', $consultationEnd)] = date('H:i', $consultationStart);
+            }
+        }
+        return $options;
+    }
+
+    public function canBeListed()
+    {
+        $options = [];
+        for ($consultationStart = $this->getStartDate()->getTimestamp(); $consultationStart < $this->getEndDate()->getTimestamp(); $consultationStart += $this->getPeriod()) {
+            $options[] = date('H:i', $consultationStart);
+        }
+
+        $takenTerms = [];
+        foreach ($this->reservations as $reservation) {
+            $takenTerms[] = $reservation->getTerm();
+        }
+
+        return count($takenTerms) !== count($options);
+    }
+
 }

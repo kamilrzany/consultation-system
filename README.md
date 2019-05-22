@@ -18,6 +18,7 @@ yake install
 ```
 * run `yarn run watch` in background to work with assets
 * run `php bin/console cache:clear` to clear application cache
+* run `php bin/console make:entity --regenerate App` to generate getters and setters of entities
 
 Migrations
 ---

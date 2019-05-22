@@ -9,16 +9,14 @@
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Rezerwacje</span>
+            <span>Konsultacje</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="">Dodaj</a>
-            <a class="dropdown-item" href="">Lista</a>
+        {% set active = app.request.get('_route') in [
+            'reservations', 'add_reservation', 'show_reservation', 'personal_reservations'
+        ] %}
+        <div class="dropdown-menu {% if active %}show{% endif %}" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{{ path('reservations') }}">Lista</a>
+            <a class="dropdown-item" href="{{ path('personal_reservations') }}">Moje rezerwacje</a>
         </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Coś</span></a>
     </li>
 </ul>
