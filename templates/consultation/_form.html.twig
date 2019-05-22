@@ -1,13 +1,23 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
+        <div class="form-group">
+            {{ form_label(form.room, 'Sala') }}
+            {{ form_errors(form.room) }}
+            {{ form_help(form.room) }}
+            <div class="input-group">
+                {{ form_widget(form.room, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
         <div class="form-group">
             <div class="input-group date">
                 {{ form_row(form.startDate) }}
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="form-group">
             <div class="input-group date">
                 {{ form_row(form.endDate) }}

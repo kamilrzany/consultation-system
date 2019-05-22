@@ -1,13 +1,12 @@
 vac-backend
 ========================
 * [local] vac-backend.test
-* [dev] vac-backend.app.amsdard.io
-* [live] 
 
 Requirements
 ---
  * configure your local [projects enrironment](https://bitbucket.org/as-docker/projects-environment)
  * make sure You have [YAKE](https://yake.amsdard.io/) installed
+ * make sure `vac-backend.test` domain is routed to your localhost
 
 
 Run project
@@ -17,14 +16,8 @@ yake configure
 yake up
 yake install
 ```
-* run `yake encore dev --watch` (or `npm run watch`) in background to work with assets
-* make sure `vac-backend.test` domain is routed to your localhost
-
-
-Additional info
----
-* do not use `require-dev` in composer.json (keep common vendors)
-
+* run `yarn run watch` in background to work with assets
+* run `php bin/console cache:clear` to clear application cache
 
 Migrations
 ---

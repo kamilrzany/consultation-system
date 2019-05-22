@@ -45,6 +45,11 @@ class Consultation
     protected $status;
 
     /**
+     * @ORM\Column(type="string", length=55)
+     */
+    private $room;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime $createdAt
      */
@@ -97,9 +102,23 @@ class Consultation
         return $this->status;
     }
 
-    public function setStatus(bool $status): bool
+    public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    public function setRoom(string $room): self
+    {
+        $this->room = $room;
+
+        return $this;
     }
 
     public function getCreatedAt(): \DateTime

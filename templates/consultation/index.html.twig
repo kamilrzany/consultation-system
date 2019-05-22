@@ -23,6 +23,7 @@
                         <tr>
                             <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Początek konsultacji</th>
                             <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Koniec konsultacji</th>
+                            <th scope="col">Sala</th>
                             <th scope="col">Autor</th>
                             <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> Akcje</th>
                         </tr>
@@ -32,6 +33,7 @@
                             <tr>
                                 <td>{{ consultation.startDate | date("d.m.Y H:i") }}</td>
                                 <td>{{ consultation.endDate | date("d.m.Y H:i") }}</td>
+                                <td>{{ consultation.room }}</td>
                                 <td>{{ consultation.author.getFullName() }}</td>
                                 <td class="text-right">
                                     <div class="item-actions">
