@@ -13,7 +13,8 @@
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
-                Zedytuj istniejącą konsultacje
+                <i class="fa fa-calendar-check" aria-hidden="true"></i>
+                Konsultacja {{ consultation.getStartDay() }}, {{ consultation.getHoursPeriod() }} ({{ consultation.room }})
             </div>
             <div class="card-body">
                 {{ include('consultation/_form.html.twig', {

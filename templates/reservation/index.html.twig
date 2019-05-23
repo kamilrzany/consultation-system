@@ -13,7 +13,7 @@
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-table"></i>
+                <i class="fa fa-list" aria-hidden="true"></i>
                 Lista dostępnych konsultacji
             </div>
             <div class="card-body">
@@ -21,8 +21,8 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th scope="col"><i class="fa fa-calendar-plus" aria-hidden="true"></i> Początek konsultacji</th>
-                            <th scope="col"><i class="fa fa-calendar-minus" aria-hidden="true"></i> Koniec konsultacji</th>
+                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Dzień konsultacji</th>
+                            <th scope="col"><i class="fa fa-stopwatch" aria-hidden="true"></i> Godziny konsultacji</th>
                             <th scope="col"><i class="fa fa-university" aria-hidden="true"></i> Sala</th>
                             <th scope="col"><i class="fa fa-chalkboard-teacher" aria-hidden="true"></i> Profesor</th>
                             <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> Akcje</th>
@@ -31,8 +31,8 @@
                         <tbody>
                         {% for consultation in consultations %}
                             <tr>
-                                <td>{{ consultation.startDate | date("d.m.Y H:i") }}</td>
-                                <td>{{ consultation.endDate | date("d.m.Y H:i") }}</td>
+                                <td>{{ consultation.getStartDay() }}</td>
+                                <td>{{ consultation.getHoursPeriod() }}</td>
                                 <td>{{ consultation.room }}</td>
                                 <td>{{ consultation.author.title }} {{ consultation.author.getFullName() }}</td>
                                 <td class="text-right">

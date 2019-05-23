@@ -13,8 +13,9 @@
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
+                <i class="fa fa-calendar-check" aria-hidden="true"></i>
                 Konsultacja {{ consultation.startDate | date("d.m.Y") }}, {{ consultation.startDate | date("H:i") }}
-                - {{ consultation.endDate | date("H:i") }}.
+                - {{ consultation.endDate | date("H:i") }}
             </div>
             <div class="card-body">
                 {{ form_start(form) }}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Consultation;
+use App\Entity\Reservation;
 use App\Form\ConsultationFormType;
 use App\Repository\ConsultationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,7 +70,7 @@ class ConsultationController extends AbstractController
     }
 
     /**
-     * @Route("/{id<\d+>}", methods={"GET"}, name="show_consultation")
+     * @Route("/{id<\d+>}/show", methods={"GET"}, name="show_consultation")
      */
     public function show(Consultation $consultation): Response
     {
@@ -121,5 +122,19 @@ class ConsultationController extends AbstractController
         $this->addFlash('success', 'Konsultacja została usunięta.');
 
         return $this->redirectToRoute('consultations');
+    }
+
+    /**
+     * @Route("/reservation/{id<\d+>}/delete", methods={"GET"}, name="delete_consultation_reservation")
+     */
+    public function deleteReservation(Reservation $reservation): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($reservation);
+        $em->flush();
+
+        $this->addFlash('success', 'Rezerwacja została anulowana.');
+
+        return $this->redirectToRoute('show_consultation', ['id' => $reservation->getConsultation()->getId()]);
     }
 }

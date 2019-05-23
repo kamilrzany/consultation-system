@@ -216,4 +216,29 @@ class Consultation
         return count($takenTerms) !== count($options);
     }
 
+    public function getStartDay()
+    {
+        return  date_format($this->startDate, "d.m.Y");
+    }
+
+    public function getHoursPeriod()
+    {
+        return  date_format($this->startDate, "H:i") . ' - ' . date_format($this->endDate, "H:i");
+    }
+
+    public function getSpots()
+    {
+        $spots = [];
+        for ($consultationStart = $this->getStartDate()->getTimestamp(); $consultationStart < $this->getEndDate()->getTimestamp(); $consultationStart += $this->getPeriod()) {
+            $consultationEnd = $consultationStart + $this->getPeriod();
+            $spots['available'][] = $consultationEnd;
+
+            $takenSpots = [];
+            foreach ($this->reservations as $reservation) {
+                $takenSpots[] = $reservation->getTerm();
+            }
+            $spots['taken'] = $takenSpots;
+        }
+        return count($spots['available']) - count($spots['taken']) . ' / ' . count($spots['available']);
+    }
 }
