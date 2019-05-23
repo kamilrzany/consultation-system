@@ -14,11 +14,13 @@
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fa fa-calendar-check" aria-hidden="true"></i>
-                Konsultacja {{ consultation.getStartDay() }}, {{ consultation.getHoursPeriod() }} ({{ consultation.room }})
+                Konsultacja {{ consultation.getStartDay() }}, {{ consultation.getHoursPeriod() }}
+                ({{ consultation.room }})
             </div>
             <div class="card-body">
                 {{ include('consultation/_form.html.twig', {
-                    form: form
+                    form: form,
+                    consultation: consultation
                 }, with_context = false) }}
             </div>
         </div>

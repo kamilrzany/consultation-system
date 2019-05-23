@@ -1,41 +1,42 @@
 {% extends 'dashboard.html.twig' %}
 
 {% block body %}
-<div class="container-fluid">
-    <!-- Breadcrumbs-->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="#">Konsultacja</a>
-        </li>
-        <li class="breadcrumb-item active">Widok</li>
-    </ol>
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Konsultacja</a>
+            </li>
+            <li class="breadcrumb-item active">Widok</li>
+        </ol>
 
-    <!-- DataTables Example -->
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-            Konsultacja {{ reservation.consultation.startDate | date("d.m.Y") }}, {{ reservation.getFullTerm() }}
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-12">
-                    <p>{{ reservation.consultation.author.title }} <strong>{{ reservation.consultation.author.getFullName() }}</strong> będzie
-                        oczekiwał Cię w sali <strong>{{ reservation.consultation.room }}</strong>.</p>
-                    <p>Konsultacja odbędzie się o <strong>{{ reservation.getFullTerm() }}</strong>.</p>
-                    <p><strong>Proszę przyjść punktualnie!</strong></p>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                Konsultacja {{ reservation.consultation.startDate | date("d.m.Y") }}, {{ reservation.getFullTerm() }}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>{{ reservation.consultation.author.title }}
+                            <strong>{{ reservation.consultation.author.getFullName() }}</strong> będzie
+                            oczekiwał Cię w sali <strong>{{ reservation.consultation.room }}</strong>.</p>
+                        <p>Konsultacja odbędzie się o <strong>{{ reservation.getFullTerm() }}</strong>.</p>
+                        <p><strong>Proszę przyjść punktualnie!</strong></p>
+                    </div>
                 </div>
-            </div>
-            <div class="button-row">
-                <a href="{{ path('personal_reservations') }}" class="btn btn-link">
-                    <i class="fa fa-list-alt" aria-hidden="true"></i> Wróć do listy
-                </a>
-                <a href="#" class="btn btn-sm btn-info" data-toggle="modal"
-                   data-target="#confirmationModal-{{ reservation.id }}">
-                    <i class="fa fa-window-close" aria-hidden="true"></i> Anuluj
-                </a>
-                {{ include('reservation/_delete_reservation_confirmation.html.twig', {id: reservation.id}) }}
-            </div>
+                <div class="button-row">
+                    <a href="{{ path('personal_reservations') }}" class="btn btn-sm btn-link">
+                        <i class="fa fa-list-alt" aria-hidden="true"></i> Wróć do listy
+                    </a>
+                    <a href="#" class="btn btn-sm btn-info" data-toggle="modal"
+                       data-target="#confirmationModal-{{ reservation.id }}">
+                        <i class="fa fa-window-close" aria-hidden="true"></i> Anuluj
+                    </a>
+                    {{ include('reservation/_delete_reservation_confirmation.html.twig', {id: reservation.id}) }}
+                </div>
             </div>
         </div>
     </div>
-    {% endblock %}
+{% endblock %}

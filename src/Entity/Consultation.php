@@ -154,16 +154,28 @@ class Consultation
     public function getOptions()
     {
         $options = [];
-        for ($consultationStart = $this->getStartDate()->getTimestamp(); $consultationStart < $this->getEndDate()->getTimestamp(); $consultationStart += $this->getPeriod()) {
-            $consultationEnd = $consultationStart + $this->getPeriod();
-            $availableTerms = [];
-            foreach ($this->reservations as $reservation) {
-                $availableTerms[] = $reservation->getTerm();
-            }
-            if (!in_array(date('H:i', $consultationStart), $availableTerms)) {
-                $options[date('H:i', $consultationStart) . ' - ' . date('H:i', $consultationEnd)] = date('H:i', $consultationStart);
+        $takenTerms = [];
+        foreach ($this->reservations as $reservation) {
+            $takenTerms[] = $reservation->getTerm();
+        }
+
+        foreach ($this->getAllAvailableOptions() as $key => $klucz) {
+            if (!in_array($klucz, $takenTerms)) {
+                $options[$key] = $klucz;
             }
         }
+
+        return $options;
+    }
+
+    public function getAllAvailableOptions()
+    {
+        $options = [];
+        for ($consultationStart = $this->getStartDate()->getTimestamp(); $consultationStart < $this->getEndDate()->getTimestamp(); $consultationStart += $this->getPeriod()) {
+            $consultationEnd = $consultationStart + $this->getPeriod();
+            $options[date('H:i', $consultationStart) . ' - ' . date('H:i', $consultationEnd)] = date('H:i', $consultationStart);
+        }
+
         return $options;
     }
 

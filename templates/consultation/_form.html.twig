@@ -26,11 +26,20 @@
     </div>
 </div>
 <div class="button-row">
-    <a href="{{ path('consultations') }}" class="btn btn-link">
+    <a href="{{ path('consultations') }}" class="btn btn-sm btn-link">
         <i class="fa fa-list-alt" aria-hidden="true"></i> Wróć do listy
     </a>
-    <button type="submit" class="btn btn-primary">
-        <i class="fa fa-calendar-check" aria-hidden="true"></i> Zapisz
-    </button>
+    {% if consultation.getReservations() | length > 0 %}
+        <a href="#" class="btn btn-sm btn-primary" data-toggle="modal"
+           data-target="#confirmationModal">
+
+            <i class="fa fa-calendar-check" aria-hidden="true"></i> Zapisz
+        </a>
+        {{ include('consultation/_edit_consultation_confirmation.html.twig') }}
+    {% else %}
+        <button type="submit" class="btn btn-sm btn-primary">
+            <i class="fa fa-calendar-check" aria-hidden="true"></i> Zapisz
+        </button>
+    {% endif %}
 </div>
 {{ form_end(form) }}

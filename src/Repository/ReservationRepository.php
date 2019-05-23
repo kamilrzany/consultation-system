@@ -19,6 +19,19 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findByTermAndId($term, $consultationId)
+    {
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.consultation', 'c')
+            ->addSelect('c')
+            ->where('r.term = :term')
+            ->AndWhere('c.id >= :consultation')
+            ->setParameter('term', $term)
+            ->setParameter('consultation', $consultationId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function findActivePersonalReservations($user)
     {
         $date = new \DateTime();

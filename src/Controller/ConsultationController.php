@@ -6,6 +6,7 @@ use App\Entity\Consultation;
 use App\Entity\Reservation;
 use App\Form\ConsultationFormType;
 use App\Repository\ConsultationRepository;
+use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,7 +86,7 @@ class ConsultationController extends AbstractController
     /**
      * @Route("/{id<\d+>}/edit",methods={"GET", "POST"}, name="edit_consultation")
      */
-    public function edit(Request $request, Consultation $consultation): Response
+    public function edit(Request $request, Consultation $consultation, ReservationRepository $reservationRepository): Response
     {
         $form = $this->createForm(ConsultationFormType::class, $consultation);
         $form->handleRequest($request);
@@ -98,9 +99,22 @@ class ConsultationController extends AbstractController
             if (!$datesValidation) {
                 $this->addFlash('error', 'Data zakończenia musi być większa od daty rozpoczęcia!');
                 return $this->redirectToRoute('edit_consultation', ['id' => $consultation->getId()]);
+            } else if ($data->getStartDate() < new \DateTime()) {
+                $this->addFlash('error', 'Data rozpoczęcia musi być większa od obecnej daty i godziny!');
+                return $this->redirectToRoute('add_consultation');
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+
+            $termsToRemove = array_diff($consultation->getReservations()->map(function ($lol) {
+                return $lol->getTerm();
+            })->toArray(), array_values($consultation->getAllAvailableOptions()));
+
+            foreach ($termsToRemove as $term) {
+                $reservation = $reservationRepository->findByTermAndId($term, $consultation->getId());
+                $em->remove($reservation);
+            }
+            $em->flush();
 
             $this->addFlash('success', 'Konsultacja została zaktualizowana.');
 
