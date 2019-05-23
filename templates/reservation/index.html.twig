@@ -21,10 +21,10 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Początek konsultacji</th>
-                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Koniec konsultacji</th>
-                            <th scope="col">Sala</th>
-                            <th scope="col">Autor</th>
+                            <th scope="col"><i class="fa fa-calendar-plus" aria-hidden="true"></i> Początek konsultacji</th>
+                            <th scope="col"><i class="fa fa-calendar-minus" aria-hidden="true"></i> Koniec konsultacji</th>
+                            <th scope="col"><i class="fa fa-university" aria-hidden="true"></i> Sala</th>
+                            <th scope="col"><i class="fa fa-chalkboard-teacher" aria-hidden="true"></i> Profesor</th>
                             <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> Akcje</th>
                         </tr>
                         </thead>
@@ -34,7 +34,7 @@
                                 <td>{{ consultation.startDate | date("d.m.Y H:i") }}</td>
                                 <td>{{ consultation.endDate | date("d.m.Y H:i") }}</td>
                                 <td>{{ consultation.room }}</td>
-                                <td>{{ consultation.author.getFullName() }}</td>
+                                <td>{{ consultation.author.title }} {{ consultation.author.getFullName() }}</td>
                                 <td class="text-right">
                                     <div class="item-actions">
                                         <a href="{{ path('show_reservation', {id: consultation.id}) }}"
@@ -42,8 +42,8 @@
                                             <i class="fa fa-eye" aria-hidden="true"></i> Wyświetl
                                         </a>
                                         <a href="{{ path('add_reservation', {id: consultation.id}) }}"
-                                           class="btn btn-sm btn-primary">
-                                            <i class="fa fa-edit" aria-hidden="true"></i> Dodaj rezerwację
+                                           class="btn btn-sm btn-success">
+                                            <i class="fa fa-calendar-check" aria-hidden="true"></i> Dodaj rezerwację
                                         </a>
                                     </div>
                                 </td>

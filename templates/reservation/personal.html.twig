@@ -21,10 +21,10 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Data</th>
-                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Czas trwania</th>
-                            <th scope="col">Sala</th>
-                            <th scope="col">Profesor</th>
+                            <th scope="col"><i class="fa fa-calendar-day" aria-hidden="true"></i> Data</th>
+                            <th scope="col"><i class="fa fa-stopwatch" aria-hidden="true"></i> Czas trwania</th>
+                            <th scope="col"><i class="fa fa-university" aria-hidden="true"></i> Sala</th>
+                            <th scope="col"><i class="fa fa-chalkboard-teacher" aria-hidden="true"></i> Profesor</th>
                             <th scope="col" class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i> Akcje</th>
                         </tr>
                         </thead>
@@ -37,9 +37,13 @@
                                 <td>{{ reservation.consultation.author.title }} {{ reservation.consultation.author.getFullName() }}</td>
                                 <td class="text-right">
                                     <div class="item-actions">
-                                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal"
+                                        <a href="{{ path('show_personal_reservation', {id: reservation.id}) }}"
+                                           class="btn btn-sm btn-default">
+                                            <i class="fa fa-eye" aria-hidden="true"></i> Wyświetl
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-info" data-toggle="modal"
                                            data-target="#confirmationModal-{{ reservation.id }}">
-                                            <i class="fa fa-trash" aria-hidden="true"></i> Anuluj
+                                            <i class="fa fa-window-close" aria-hidden="true"></i> Anuluj
                                         </a>
                                         {{ include('reservation/_delete_reservation_confirmation.html.twig', {id: reservation.id}) }}
                                     </div>

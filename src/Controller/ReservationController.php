@@ -95,6 +95,16 @@ class ReservationController extends AbstractController
     }
 
     /**
+     * @Route("/personal/{id<\d+>}/show",methods={"GET"}, name="show_personal_reservation")
+     */
+    public function personalShow(Reservation $reservation): Response
+    {
+        return $this->render('reservation/personal-show.html.twig', [
+            'reservation' => $reservation
+        ]);
+    }
+
+    /**
      * @Route("/personal/{id<\d+>}/delete", methods={"GET"}, name="delete_reservation")
      */
     public function delete(Reservation $reservation): Response

@@ -1,26 +1,54 @@
 {% extends 'dashboard.html.twig' %}
 
 {% block body %}
-    <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="#">Konsultacja</a>
-            </li>
-            <li class="breadcrumb-item active">Widok</li>
-        </ol>
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Konsultacja</a>
+        </li>
+        <li class="breadcrumb-item active">Widok</li>
+    </ol>
 
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-            <div class="card-header">
-                Konsultacja {{ consultation.startDate | date("d.m.Y H:i") }}
-                - {{ consultation.endDate | date("d.m.Y H:i") }}
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    {{ consultation.author.getFullname() }}
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            Konsultacja {{ consultation.startDate | date("d.m.Y") }}, {{ consultation.startDate | date("H:i") }}
+            - {{ consultation.endDate | date("H:i") }}
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>{{ consultation.author.title }} <strong>{{ consultation.author.getFullName() }}</strong> będzie
+                        oczekiwał studenów w sali <strong>{{ consultation.room }}</strong>.</p>
+                    <p>Konsultacje odbędą się w godzinach <strong>{{ consultation.startDate | date("H:i") }}
+                            - {{ consultation.endDate | date("H:i") }}</strong>.</p>
                 </div>
+                <div class="col-sm-6">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Wolne terminy</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for term_key, term_value in consultation.getOptions() %}
+                            <tr>
+                                <td>{{ term_key }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="button-row">
+                <a href="{{ path('reservations') }}" class="btn btn-link">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i> Wróć do listy
+                </a>
+                <a href="{{ path('add_reservation', {id: consultation.id}) }}" class="btn btn-primary">
+                    <i class="fa fa-calendar-check" aria-hidden="true"></i> Dodaj rezerwację
+                </a>
             </div>
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
