@@ -23,7 +23,7 @@ class ConsultationController extends AbstractController
      */
     public function index(ConsultationRepository $consultationRepository): Response
     {
-        $consultations = $consultationRepository->findBy(['author' => $this->getUser()], ['startDate' => 'ASC']);
+        $consultations = $consultationRepository->findActiveConsultations($this->getUser()->getId());
 
         return $this->render('consultation/index.html.twig', ['consultations' => $consultations]);
     }
@@ -47,6 +47,9 @@ class ConsultationController extends AbstractController
 
             if (!$datesValidation) {
                 $this->addFlash('error', 'Data zakończenia musi być większa od daty rozpoczęcia!');
+                return $this->redirectToRoute('add_consultation');
+            } else if ($data->getStartDate() < new \DateTime()) {
+                $this->addFlash('error', 'Data rozpoczęcia musi być większa od obecnej daty i godziny!');
                 return $this->redirectToRoute('add_consultation');
             }
 

@@ -42,23 +42,13 @@ class Consultation
     private $author;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    protected $status;
-
-    /**
      * @ORM\Column(type="string", length=55)
      */
     private $room;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var \DateTime $createdAt
-     */
-    private $createdAt;
-
-    /**
      * @ORM\OneToMany(targetEntity="Reservation", mappedBy="consultation", cascade={"persist"})
+     * @ORM\OrderBy({"term" = "ASC"})
      */
     private $reservations;
 
@@ -66,10 +56,8 @@ class Consultation
 
     public function __construct()
     {
-        $this->status = true;
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
-        $this->createdAt = new \DateTime();
         $this->reservations = new ArrayCollection();
     }
 
@@ -113,18 +101,6 @@ class Consultation
         $this->author = $author;
     }
 
-    public function getStatus(): bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getRoom()
     {
         return $this->room;
@@ -135,16 +111,6 @@ class Consultation
         $this->room = $room;
 
         return $this;
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 
     public function areDatesValid(\DateTime $startDate, \DateTime $endDate): bool
@@ -218,12 +184,12 @@ class Consultation
 
     public function getStartDay()
     {
-        return  date_format($this->startDate, "d.m.Y");
+        return date_format($this->startDate, "d.m.Y");
     }
 
     public function getHoursPeriod()
     {
-        return  date_format($this->startDate, "H:i") . ' - ' . date_format($this->endDate, "H:i");
+        return date_format($this->startDate, "H:i") . ' - ' . date_format($this->endDate, "H:i");
     }
 
     public function getSpots()

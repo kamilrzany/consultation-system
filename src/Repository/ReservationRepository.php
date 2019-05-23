@@ -19,10 +19,30 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findActivePersonalReservations($user)
+    {
+        $date = new \DateTime();
+
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.author', 'u')
+            ->innerJoin('r.consultation', 'c')
+            ->addSelect('u')
+            ->addSelect('c')
+            ->where('r.author = :author')
+            ->AndWhere('c.endDate >= :date')
+            ->setParameter('date', $date)
+            ->setParameter('author', $user)
+            ->addOrderBy('c.startDate', 'ASC')
+            ->addOrderBy('r.term', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findReservationsInCurrentWeek($user)
     {
         $firstDay = new \DateTime(date("d.m.Y", strtotime('monday this week')));
         $lastDay = new \DateTime(date("d.m.Y", strtotime('sunday this week')));
+        $date = new \DateTime();
 
         return $this->createQueryBuilder('r')
             ->innerJoin('r.author', 'u')
@@ -31,10 +51,13 @@ class ReservationRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->where('r.author = :author')
             ->AndWhere('c.startDate BETWEEN :firstDay AND :lastDay')
+            ->AndWhere('c.endDate >= :date')
             ->setParameter('firstDay', $firstDay)
             ->setParameter('lastDay', $lastDay)
+            ->setParameter('date', $date)
             ->setParameter('author', $user)
-            ->orderBy('c.startDate', 'ASC')
+            ->addOrderBy('c.startDate', 'ASC')
+            ->addOrderBy('r.term', 'ASC')
             ->getQuery()
             ->getResult();
     }

@@ -29,7 +29,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for reservation in reservations %}
+                        {% for reservation in reservations  %}
                             <tr>
                                 <td>{{ reservation.consultation.startDate | date('d.m.Y') }}</td>
                                 <td>{{ reservation.getFullTerm() }}</td>

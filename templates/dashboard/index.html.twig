@@ -11,7 +11,7 @@
             <li class="breadcrumb-item active">Overview</li>
         </ol>
         <!-- Icon Cards-->
-        {% include 'dashboard/_partials/cards.html.twig' %}
+{#        {% include 'dashboard/_partials/cards.html.twig' %}#}
 
         {% if is_granted("ROLE_ADMIN") %}
             {% include 'dashboard/_partials/table-admin.html.twig' %}

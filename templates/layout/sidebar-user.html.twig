@@ -5,15 +5,15 @@
             <span>Dashboard</span>
         </a>
     </li>
-    <li class="nav-item dropdown">
+    {% set active = app.request.get('_route') in [
+        'reservations', 'add_reservation', 'show_reservation', 'personal_reservations'
+    ] %}
+    <li class="nav-item dropdown {% if active %}active{% endif %}">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
             <span>Konsultacje</span>
         </a>
-        {% set active = app.request.get('_route') in [
-            'reservations', 'add_reservation', 'show_reservation', 'personal_reservations'
-        ] %}
         <div class="dropdown-menu {% if active %}show{% endif %}" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="{{ path('reservations') }}">Lista</a>
             <a class="dropdown-item" href="{{ path('personal_reservations') }}">Moje rezerwacje</a>

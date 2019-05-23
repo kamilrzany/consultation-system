@@ -24,7 +24,7 @@ class ReservationController extends AbstractController
      */
     public function index(ConsultationRepository $consultationRepository): Response
     {
-        $consultations = $consultationRepository->findBy(['status' => true], ['startDate' => 'ASC']);
+        $consultations = $consultationRepository->findActiveReservations();
 
         $filtered = [];
         foreach ($consultations as $consultation) {
@@ -86,8 +86,7 @@ class ReservationController extends AbstractController
      */
     public function personal(ReservationRepository $reservationRepository): Response
     {
-        $user = $this->getUser()->getId();
-        $reservations = $reservationRepository->findBy(['author' => $user], ['createdAt' => 'ASC']);
+        $reservations = $reservationRepository->findActivePersonalReservations($this->getUser()->getId());
 
         return $this->render('reservation/personal.html.twig', [
             'reservations' => $reservations

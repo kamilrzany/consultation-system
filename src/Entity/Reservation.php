@@ -28,20 +28,9 @@ class Reservation
     private $author;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    protected $status;
-
-    /**
      * @ORM\Column(type="string", length=55)
      */
     private $term;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var \DateTime $createdAt
-     */
-    private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="Consultation", inversedBy="reservations")
@@ -49,12 +38,6 @@ class Reservation
     private $consultation;
 
     const PERIOD = 15 * 60;
-
-    public function __construct()
-    {
-        $this->status = true;
-        $this->createdAt = new \DateTime();
-    }
 
     public function getId(): ?int
     {
@@ -76,18 +59,6 @@ class Reservation
         $this->author = $author;
     }
 
-    public function getStatus(): bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus($status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getTerm()
     {
         return $this->term;
@@ -98,16 +69,6 @@ class Reservation
         $this->term = $term;
 
         return $this;
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 
     public function getConsultation(): ?Consultation

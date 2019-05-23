@@ -14,7 +14,7 @@ class DashboardController extends AbstractController
      */
     public function index(ConsultationRepository $consultationRepository, ReservationRepository $reservationRepository)
     {
-        $consultations = $consultationRepository->findConsultationInCurrentWeek($this->getUser()->getId());
+        $consultations = $consultationRepository->findConsultationsInCurrentWeek($this->getUser()->getId());
         $reservations = $reservationRepository->findReservationsInCurrentWeek($this->getUser()->getId());
 
         return $this->render('dashboard/index.html.twig', [
