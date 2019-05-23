@@ -19,4 +19,23 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findReservationsInCurrentWeek($user)
+    {
+        $firstDay = new \DateTime(date("d.m.Y", strtotime('monday this week')));
+        $lastDay = new \DateTime(date("d.m.Y", strtotime('sunday this week')));
+
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.author', 'u')
+            ->innerJoin('r.consultation', 'c')
+            ->addSelect('u')
+            ->addSelect('c')
+            ->where('r.author = :author')
+            ->AndWhere('c.startDate BETWEEN :firstDay AND :lastDay')
+            ->setParameter('firstDay', $firstDay)
+            ->setParameter('lastDay', $lastDay)
+            ->setParameter('author', $user)
+            ->orderBy('c.startDate', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

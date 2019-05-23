@@ -19,4 +19,21 @@ class ConsultationRepository extends ServiceEntityRepository
         parent::__construct($registry, Consultation::class);
     }
 
+    public function findConsultationInCurrentWeek($user)
+    {
+        $firstDay = new \DateTime(date("d.m.Y", strtotime('monday this week')));
+        $lastDay = new \DateTime(date("d.m.Y", strtotime('sunday this week')));
+
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.author', 'u')
+            ->addSelect('u')
+            ->where('c.author = :author')
+            ->AndWhere('c.startDate BETWEEN :firstDay AND :lastDay')
+            ->setParameter('firstDay', $firstDay)
+            ->setParameter('lastDay', $lastDay)
+            ->setParameter('author', $user)
+            ->orderBy('c.startDate', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
