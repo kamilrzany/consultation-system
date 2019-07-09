@@ -903,83 +903,184 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="226" parent="3" name="migration_versions">
+    <table id="226" parent="3" name="consultations">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <table id="227" parent="3" name="user">
+    <table id="227" parent="3" name="migration_versions">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <column id="228" parent="226" name="version">
-      <Position>1</Position>
-      <DataType>varchar(14)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="229" parent="226" name="executed_at">
-      <Position>2</Position>
-      <Comment>(DC2Type:datetime_immutable)</Comment>
-      <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="230" parent="226" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>version</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="231" parent="227" name="id">
+    <table id="228" parent="3" name="reservations">
+      <Collation>utf8mb4_unicode_ci</Collation>
+    </table>
+    <table id="229" parent="3" name="user">
+      <Collation>utf8mb4_unicode_ci</Collation>
+    </table>
+    <column id="230" parent="226" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="227" name="email">
+    <column id="231" parent="226" name="author_id">
       <Position>2</Position>
-      <DataType>varchar(180)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="233" parent="227" name="roles">
+    <column id="232" parent="226" name="start_date">
       <Position>3</Position>
-      <DataType>json|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="234" parent="227" name="password">
+    <column id="233" parent="226" name="end_date">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="235" parent="227" name="name">
+    <column id="234" parent="226" name="room">
       <Position>5</Position>
       <DataType>varchar(55)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="236" parent="227" name="surname">
+    <index id="235" parent="226" name="IDX_242D8F53F675F31B">
+      <ColNames>author_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="236" parent="226" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="237" parent="226" name="FK_242D8F53F675F31B">
+      <ColNames>author_id</ColNames>
+      <RefSchemaName>vac_db</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="238" parent="227" name="version">
+      <Position>1</Position>
+      <DataType>varchar(14)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="239" parent="227" name="executed_at">
+      <Position>2</Position>
+      <Comment>(DC2Type:datetime_immutable)</Comment>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="240" parent="227" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>version</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="241" parent="228" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="242" parent="228" name="author_id">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="243" parent="228" name="consultation_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="244" parent="228" name="term">
+      <Position>4</Position>
+      <DataType>varchar(55)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="245" parent="228" name="IDX_4DA239F675F31B">
+      <ColNames>author_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="246" parent="228" name="IDX_4DA23962FF6CDF">
+      <ColNames>consultation_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="247" parent="228" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="248" parent="228" name="FK_4DA239F675F31B">
+      <ColNames>author_id</ColNames>
+      <RefSchemaName>vac_db</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="249" parent="228" name="FK_4DA23962FF6CDF">
+      <ColNames>consultation_id</ColNames>
+      <RefSchemaName>vac_db</RefSchemaName>
+      <RefTableName>consultations</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="250" parent="229" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="251" parent="229" name="email">
+      <Position>2</Position>
+      <DataType>varchar(180)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="252" parent="229" name="roles">
+      <Position>3</Position>
+      <DataType>json|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="253" parent="229" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="254" parent="229" name="name">
+      <Position>5</Position>
+      <DataType>varchar(55)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="255" parent="229" name="surname">
       <Position>6</Position>
       <DataType>varchar(55)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="227" name="title">
+    <column id="256" parent="229" name="title">
       <Position>7</Position>
       <DataType>varchar(55)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="238" parent="227" name="UNIQ_8D93D649E7927C74">
+    <index id="257" parent="229" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="239" parent="227" name="PRIMARY">
+    <key id="258" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="240" parent="227" name="UNIQ_8D93D649E7927C74">
+    <key id="259" parent="229" name="UNIQ_8D93D649E7927C74">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>UNIQ_8D93D649E7927C74</UnderlyingIndexName>
     </key>
