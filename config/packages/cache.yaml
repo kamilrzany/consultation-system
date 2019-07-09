@@ -2,14 +2,14 @@ framework:
     cache:
         # Put the unique name of your app here: the prefix seed
         # is used to compute stable namespaces for cache keys.
-        prefix_seed: vendor/vac-backend
+        prefix_seed: vendor/consultation-system
 
         # The app cache caches to the filesystem by default.
         # Other options include:
 
         # Redis
         app: cache.adapter.redis
-        default_redis_provider: redis://redis.vac-backend.docker
+        default_redis_provider: redis://redis.consultation-system.docker
 
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
         #app: cache.adapter.apcu

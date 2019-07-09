@@ -3,7 +3,7 @@ version: '3'
 services:
   redis:
     image: redis:5-alpine
-    container_name: redis.vac-backend.docker
+    container_name: redis.consultation-system.docker
     command: 'redis-server --save "" --appendonly no'
     stdin_open: true
     tty: true
@@ -14,7 +14,7 @@ services:
   mysql:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
-    container_name: mysql.vac-backend.docker
+    container_name: mysql.consultation-system.docker
     tty: true
     networks:
        - global
@@ -24,12 +24,12 @@ services:
        - MYSQL_DATABASE=vac_db
        - MYSQL_ROOT_PASSWORD=vac_pw
     volumes:
-       - ~/data/mysql.vac-backend.docker:/var/lib/mysql
+       - ~/data/mysql.consultation-system.docker:/var/lib/mysql
     restart: always
     
   php:
-    image: amsdard.io/vac-backend/php:1.0
-    container_name: php.vac-backend.docker
+    image: amsdard.io/consultation-system/php:1.0
+    container_name: php.consultation-system.docker
     build:
         context: ./
         dockerfile: ./docker/php/Dockerfile
@@ -47,8 +47,8 @@ services:
     restart: always
 
   nginx:
-    image: amsdard.io/vac-backend/nginx:1.0
-    container_name: nginx.vac-backend.docker
+    image: amsdard.io/consultation-system/nginx:1.0
+    container_name: nginx.consultation-system.docker
     build:
         context: ./
         dockerfile: ./docker/nginx/Dockerfile
@@ -57,7 +57,7 @@ services:
     stdin_open: true
     tty: true
     labels:
-       traefik.frontend.rule: "HostRegexp:{subdomain}.vac-backend.test,vac-backend.test"
+       traefik.frontend.rule: "HostRegexp:{subdomain}.consultation-system.test,consultation-system.test"
     volumes:
        - ./public:/opt/public:cached
        - ./docker/nginx/:/etc/nginx/conf.d:cached
